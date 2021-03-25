@@ -5,10 +5,11 @@ import { FiMail, FiLock } from 'react-icons/fi';
 
 import { loginUser, registerNewUser } from '../../Services/Apis';
 
-import Container from './styles';
+import S from './styles';
 
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
+import LogoTryBeer from '../../Components/LogoTryBeer';
 
 const handleSubmit = async (event,
   { name, email, password, isChecked, setEmailAlreadyExists }) => {
@@ -49,7 +50,7 @@ const form = (params) => {
   const paramsRegistered = { name, email, password, isChecked, setEmailAlreadyExists };
   const theme = JSON.parse(localStorage.getItem('@trybeer:theme'));
   return (
-    <form onSubmit={ (e) => handleSubmit(e, paramsRegistered) }>
+    <S.Form onSubmit={ (e) => handleSubmit(e, paramsRegistered) }>
       <h1>Register</h1>
       <Input
         id="name-input"
@@ -59,7 +60,6 @@ const form = (params) => {
         themeStorage={ theme && theme.title }
         icon={ BiUser }
       />
-      {(emailAlreadyExists) ? <p>E-mail already in database.</p> : null}
       <Input
         id="email-input"
         label="Email"
@@ -68,6 +68,7 @@ const form = (params) => {
         themeStorage={ theme && theme.title }
         icon={ FiMail }
       />
+      {(emailAlreadyExists) ? <p>E-mail already in database.</p> : null}
       <Input
         id="password-input"
         label="Senha"
@@ -76,10 +77,7 @@ const form = (params) => {
         themeStorage={ theme && theme.title }
         icon={ FiLock }
       />
-      <label
-        htmlFor="check"
-        className="label-checkBox"
-      >
+      <S.Label htmlFor="check">
         <input
           className="input-checkBox"
           id="check"
@@ -89,9 +87,10 @@ const form = (params) => {
           data-testid="signup-seller"
         />
         Quero vender
-      </label>
+        <span className="checkmark" />
+      </S.Label>
       {button(isDisabled)}
-    </form>
+    </S.Form>
   );
 };
 
@@ -132,9 +131,10 @@ const Register = () => {
   };
 
   return (
-    <Container>
+    <S.Container>
+      <LogoTryBeer />
       {form(params)}
-    </Container>
+    </S.Container>
   );
 };
 
